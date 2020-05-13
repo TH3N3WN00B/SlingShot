@@ -75,11 +75,6 @@ public class SlingShot extends Plugin implements Listener {
 
 		debug = false;
 		onlineMap = new HashMap<String, Boolean>();
-
-		/* BSTATS */////////////////////////
-		@SuppressWarnings("unused")
-		Metrics metrics = new Metrics(this);
-		////////////////////////////////////
 		
 		// Create plugin folder if it doesn't exist
 		if (!getDataFolder().exists()) {
