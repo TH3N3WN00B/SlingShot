@@ -2,6 +2,8 @@ package xyz.olivermartin.slingshot;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.util.Arrays;
@@ -10,12 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.bstats.bungeecord.Metrics;
-
-import net.md_5.bungee.api.Callback;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -172,30 +170,14 @@ public class SlingShot extends Plugin implements Listener {
 
 			onlineMap.remove(next);
 
-			getProxy().getServers().get(next).ping(new Callback<ServerPing>() {
-
-				@Override
-				public void done(ServerPing result, Throwable error) {
-
-					boolean targetOnline = (error == null);
-
-					synchronized (next) {
-
-						// If the target server is online then connect to it, otherwise kick the player
-						if (targetOnline) {
-							onlineMap.put(next, true);
-						} else {
-							onlineMap.put(next, false);
-						}
-						next.notify();
-					}
-
-					return;
-
-				}
-
-			});
-
+			InetSocketAddress address = getProxy().getServers().get(next).getAddress();
+			
+			if(checkServer(address.getAddress().getHostAddress(), address.getPort())) {
+				onlineMap.put(next, true);
+			} else {
+				onlineMap.put(next, false);
+			}
+			
 			// Wait for ping result
 			synchronized (next) {
 				try {
@@ -269,5 +251,16 @@ public class SlingShot extends Plugin implements Listener {
 		event.setCancelled(true);
 
 	}
+	
+	private boolean checkServer(String ip, int port) {
+        try {
+            Socket s = new Socket();
+            s.connect(new InetSocketAddress(ip, port), 20);
+            s.close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
 
 }
