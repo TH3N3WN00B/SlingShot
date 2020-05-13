@@ -86,7 +86,7 @@ public class SlingShot extends Plugin implements Listener {
 		// If config isn't an allowed version
 		if (! (Arrays.stream(ALLOWED_VERSIONS).anyMatch(x -> x.equals(configman.config.getString("version"))) ) ) {
 
-			getLogger().warning("[SlingShot] CONFIG VERSION INCORRECT - Your config.yml is outdated. It will be saved as config-old-pre-v2.yml, and a fresh config.yml will be created.");
+			getLogger().warning("CONFIG VERSION INCORRECT - Your config.yml is outdated. It will be saved as config-old-pre-v2.yml, and a fresh config.yml will be created.");
 
 			File f = new File(SlingShot.configDir + File.separator + "config.yml");
 
@@ -95,7 +95,7 @@ public class SlingShot extends Plugin implements Listener {
 				Files.deleteIfExists(f.toPath());
 				configman.startupConfig();
 			} catch (IOException e) {
-				getLogger().severe("[SlingShot] [ERROR] Could not move old config. Plugin will not work until this config is deleted.");
+				getLogger().severe("[ERROR] Could not move old config. Plugin will not work until this config is deleted.");
 				e.printStackTrace();
 				return;
 			}

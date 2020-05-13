@@ -22,13 +22,13 @@ public class ConfigManager {
 
 			if (!file.exists()) {
 
-				SlingShot.getInstance().getLogger().info("[SlingShot] Config.yml not found, creating!");
+				SlingShot.getInstance().getLogger().info("Config.yml not found, creating!");
 				saveDefaultConfig();
 				loadConfig();
 
 			} else {
 
-				SlingShot.getInstance().getLogger().info("[SlingShot] Config.yml already exists, loading!");
+				SlingShot.getInstance().getLogger().info("Config.yml already exists, loading!");
 				loadConfig();
 
 			}
