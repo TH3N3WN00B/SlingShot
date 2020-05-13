@@ -25,6 +25,7 @@ public class SlingShotCommand extends Command {
 
 		if (args[0].toLowerCase().equals("debug")) {
 			SlingShot.debug = !SlingShot.debug;
+			sender.sendMessage(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&', "&aDebug mode turned " + (SlingShot.debug ? "on" : "off"))).create());
 		}
 
 	}
