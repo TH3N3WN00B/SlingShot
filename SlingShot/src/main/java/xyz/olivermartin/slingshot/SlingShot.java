@@ -80,7 +80,7 @@ public class SlingShot extends Plugin implements Listener {
 		@SuppressWarnings("unused")
 		Metrics metrics = new Metrics(this);
 		////////////////////////////////////
-
+		
 		// Create plugin folder if it doesn't exist
 		if (!getDataFolder().exists()) {
 			getLogger().info("Creating plugin directory!");
@@ -261,10 +261,14 @@ public class SlingShot extends Plugin implements Listener {
 
 		debugMessage("Player will be connected to the target server on kick.");
 
+		List<String> messages = configman.config.getStringList("messages");
+		
+		String message = messages.get(SlingShot.getTargetList().indexOf(target));
+		
 		// Notify the player
-		p.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', configman.config.getString("message").replace("%REASON%", BaseComponent.toLegacyText(event.getKickReasonComponent())))));
+		p.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', message.replace("%REASON%", BaseComponent.toLegacyText(event.getKickReasonComponent())))));
 
-		debugMessage("Player notified with message: " + configman.config.getString("message").replace("%REASON%", BaseComponent.toLegacyText(event.getKickReasonComponent())));
+		debugMessage("Player notified with message: " + message.replace("%REASON%", BaseComponent.toLegacyText(event.getKickReasonComponent())));
 		debugMessage("--- END KICK EVENT ---");
 
 		event.setCancelled(true);

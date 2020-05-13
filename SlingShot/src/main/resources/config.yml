@@ -65,10 +65,14 @@ kick_reason_blacklist: []
 # +------------------------------------------------------+ #
 ############################################################
 
-# Message to send to players that have been SlingShot'ed
+# Messages to send to players that have been SlingShot'ed
+# Messages count need to be similar to target-list count
 # 
 # %REASON% will use the original kick reason
-message: "&a&oYou have been returned to the lobby for reason&f: %REASON%"
+messages: 
+- "&a&oYou have been returned to the lobby for reason&f: %REASON%"
+# - "&a&oYou have been returned to the second lobby for reason&f: %REASON%"
+# - "&a&oYou have been returned to the third lobby for reason&f: %REASON%"
 
 # If none of the target servers are online,
 # or the player is kicked from the target server while it is still online,
